@@ -22,8 +22,15 @@
 1) Створи бота через `@BotFather` і отримай `TELEGRAM_BOT_TOKEN`.
 
 2) Дізнайся `TELEGRAM_CHAT_ID`:
-- для приватного чату — напиши боту і подивись `chat.id` через будь-який getUpdates viewer/бот типу `@userinfobot`.
-- для групи — додай бота в групу, напиши повідомлення в групі і подивись `chat.id` (зазвичай від’ємне число).
+
+Найпростіший варіант через Telegram Bot API:
+
+- Напиши боту будь-яке повідомлення (наприклад `/start`). Це важливо: поки ти не писала в чат — `getUpdates` може бути порожнім.
+- Відкрий у браузері:
+	- `https://api.telegram.org/bot<TELEGRAM_BOT_TOKEN>/getUpdates`
+- Знайди `message.chat.id` — це і є `TELEGRAM_CHAT_ID`.
+
+Примітка про групи: якщо бот має писати в групу — додай бота в групу, напиши повідомлення в групі, і в `getUpdates` буде `chat.id` (зазвичай від’ємне число).
 
 3) Створи файл `telegram-webhook/.env` (НЕ коміть!) на основі `telegram-webhook/.env.example`:
 ```env
@@ -104,3 +111,11 @@ curl -X POST http://localhost:9093/api/v2/alerts \
 
 - Код: `alertmanager/config.yml`, `telegram-webhook/*`, `docker-compose.yml`
 - Скріни: Prometheus Alerts / Alertmanager Alerts / Telegram message
+
+## Скріншоти (screens)
+
+### Telegram: CPU + Disk alerts
+![](../screens/telegram_alerts.png)
+
+### Telegram: resolved (send_resolved=true)
+![](../screens/telegram_alerts_resolved.png)
