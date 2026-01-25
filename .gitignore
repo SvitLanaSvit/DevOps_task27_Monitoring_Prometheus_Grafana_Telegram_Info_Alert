@@ -1,0 +1,5 @@
+# Secrets
+telegram-webhook/.env
+
+# Local volumes / caches
+**/.DS_Store

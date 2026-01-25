@@ -1,0 +1,30 @@
+groups:
+  - name: basic-alerts
+    rules:
+      - alert: TargetDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Target down"
+          description: "{{ $labels.job }} ({{ $labels.instance }}) is down."
+
+      - alert: HighCPUUsage
+        expr: (100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[1m])) * 100)) > 80
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is > 80% on {{ $labels.instance }}."
+
+      - alert: DiskFreeLessThan15Percent
+        expr: |
+          (node_filesystem_avail_bytes{fstype!~"overlay|squashfs"} / node_filesystem_size_bytes{fstype!~"overlay|squashfs"}) * 100 < 15
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low disk space"
+          description: "Disk free < 15% on {{ $labels.instance }} (mountpoint={{ $labels.mountpoint }})"
