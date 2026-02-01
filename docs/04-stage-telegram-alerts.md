@@ -89,11 +89,7 @@ curl -X POST http://localhost:9093/api/v2/alerts \
 	-d '[{"labels":{"alertname":"DiskFreeLessThan15Percent","severity":"critical","job":"demo"},"annotations":{"summary":"DEMO: Disk free < 15%","description":"Безпечний демо-алерт (без заповнення диска)."},"startsAt":"2026-01-25T00:00:00Z"}]'
 ```
 
-3) Зроби скріни:
-- Alertmanager UI: http://localhost:9093/#/alerts
-- Telegram (повідомлення від бота)
-
-4) (Опційно) Відправ “RESOLVED” для обох демо-алертів (закрити сповіщення):
+3) (Опційно) Відправ “RESOLVED” для обох демо-алертів (закрити сповіщення):
 ```bash
 curl -X POST http://localhost:9093/api/v2/alerts \
 	-H "Content-Type: application/json" \
